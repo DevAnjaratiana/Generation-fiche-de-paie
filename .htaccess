@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+   # On force la redirection vers le dossier public pour Render
+   RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

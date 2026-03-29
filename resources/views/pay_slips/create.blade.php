@@ -1,7 +1,9 @@
 @extends('layouts.app')
+
 @section('title', 'Générer une fiche de paie')
 
 @section('content')
+
 <div class="container py-4 d-flex justify-content-center">
     <div class="w-100" style="max-width: 720px;">
 
@@ -126,30 +128,8 @@
     </div>
 </div>
 
-<script>
-    const employeeSelect = document.getElementById('employee_id');
-    const moisSelect     = document.getElementById('mois');
-    const anneeInput     = document.getElementById('annee');
-
-    employeeSelect.addEventListener('change', function () {
-        const employeeId = this.value;
-        if (!employeeId) return;
-
-        const url = `{{ url('/pay_slips/employee-data') }}?employee_id=${employeeId}`;
-
-        fetch(url, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept': 'application/json',
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            moisSelect.value = data.mois;
-            anneeInput.value = data.annee;
-        })
-        .catch(err => console.error(err));
-    });
-</script>
+<script src="{{ asset('js/pay_slips.js') }}"></script>
 
 @endsection
+
+

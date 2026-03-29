@@ -7,21 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-<script>
-    // Empêche le bouton retour dès le chargement
-    history.pushState(null, null, location.href);
 
-    // Empêche aussi après chaque navigation
-    window.onpageshow = function(event) {
-        if (event.persisted) {
-            history.pushState(null, null, location.href);
-        }
-    };
-
-    window.addEventListener('popstate', function () {
-        history.pushState(null, null, location.href);
-    });
-</script>
 <div class="container">
     <div class="row justify-content-center align-items-center min-vh-100">
         <div class="col-md-5">

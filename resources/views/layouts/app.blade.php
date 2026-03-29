@@ -11,21 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<script>
-    // Empêche le bouton retour dès le chargement
-    history.pushState(null, null, location.href);
-
-    // Empêche aussi après chaque navigation
-    window.onpageshow = function(event) {
-        if (event.persisted) {
-            history.pushState(null, null, location.href);
-        }
-    };
-
-    window.addEventListener('popstate', function () {
-        history.pushState(null, null, location.href);
-    });
-</script>
 <body class="bg-light">
 
 <div class="d-flex">
@@ -91,8 +76,8 @@
 
 
 </div>
-{{--
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')
 </body>
 </html>

@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
@@ -30,21 +32,30 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'          => 'required',
-            'matricule'     => 'required|unique:employees',
-            'poste'         => 'required',
-            'department'    => 'required',
-            'salaire_base'  => 'required|numeric',
-            'date_embauche' => 'required|date|before_or_equal:today',
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'matricule'     => 'required|string|unique:employees,matricule',
+            'poste'         => 'required|string|max:255',
+            'department'    => 'required|string|max:255',
+            'salaire_base'  => [
+                'required',
+                'numeric',
+                'min:' . config('salaire.smig', 250000),
+            ],
+            'date_embauche' => [
+                'required',
+                'date',
+                'before_or_equal:today',
+            ],
         ], [
-            'matricule.unique'              => 'Le matricule est une clé unique.',
-            'date_embauche.required'        => "La date d'embauche est obligatoire.",
-            'date_embauche.before_or_equal' => "La date d'embauche ne peut pas être une date future.",
+            'matricule.unique'              => 'Ce matricule est déjà utilisé.',
+            'date_embauche.required'        => 'La date d\'embauche est obligatoire.',
+            'date_embauche.before_or_equal' => 'La date d\'embauche ne peut pas être une date future.',
+            'salaire_base.min'              => 'Le salaire de base ne peut pas être inférieur au SMIG (' . number_format(config('salaire.smig', 250000), 0, ',', ' ') . ' Ar).',
         ]);
 
-        Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employé ajouté !');
+        Employee::create($validated);
+        return redirect()->route('employees.index')->with('success', 'Employé ajouté avec succès !');
     }
 
     public function edit(Employee $employee)
@@ -54,26 +65,35 @@ class EmployeeController extends Controller
 
     public function update(Request $request, Employee $employee)
     {
-        $request->validate([
-            'name'          => 'required',
-            'matricule'     => 'required|unique:employees,matricule,' . $employee->id,
-            'poste'         => 'required',
-            'department'    => 'required',
-            'salaire_base'  => 'required|numeric',
-             'date_embauche' => 'required|date|before_or_equal:' . now()->format('Y-m-d'), // ✅ ici
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'matricule'     => 'required|string|unique:employees,matricule,' . $employee->id,
+            'poste'         => 'required|string|max:255',
+            'department'    => 'required|string|max:255',
+            'salaire_base'  => [
+                'required',
+                'numeric',
+                'min:' . config('salaire.smig', 250000),
+            ],
+            'date_embauche' => [
+                'required',
+                'date',
+                'before_or_equal:today',
+            ],
         ], [
-            'matricule.unique'              => 'Le matricule est une clé unique.',
-            'date_embauche.required'        => "La date d'embauche est obligatoire.",
-            'date_embauche.before_or_equal' => "La date d'embauche ne peut pas être une date future.",
+            'matricule.unique'              => 'Ce matricule est déjà utilisé.',
+            'date_embauche.required'        => 'La date d\'embauche est obligatoire.',
+            'date_embauche.before_or_equal' => 'La date d\'embauche ne peut pas être une date future.',
+            'salaire_base.min'              => 'Le salaire de base ne peut pas être inférieur au SMIG (' . number_format(config('salaire.smig', 250000), 0, ',', ' ') . ' Ar).',
         ]);
 
-        $employee->update($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employé mis à jour !');
+        $employee->update($validated);
+        return redirect()->route('employees.index')->with('success', 'Employé mis à jour avec succès !');
     }
 
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return redirect()->route('employees.index')->with('success', 'Employé supprimé !');
+        return redirect()->route('employees.index')->with('success', 'Employé supprimé avec succès !');
     }
 }

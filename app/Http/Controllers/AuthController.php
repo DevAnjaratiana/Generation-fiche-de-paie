@@ -53,17 +53,27 @@ class AuthController extends Controller
     {
         $request->validate([
             'name'     => 'required',
-            'email'    => 'required|email:rfc,dns|unique:users',
+            'email'    => [
+                'required',
+                'email:rfc',
+                'unique:users',
+                function ($attribute, $value, $fail) {
+                    $allowedDomains = ['gmail.com', 'yahoo.com', 'yahoo.fr', 'outlook.com', 'hotmail.com'];
+                    $domain = strtolower(substr(strrchr($value, '@'), 1));
+                    if (!in_array($domain, $allowedDomains)) {
+                        $fail("Seuls les emails @gmail.com, @yahoo.com, @outlook.com sont acceptés.");
+                    }
+                },
+            ],
             'password' => 'required|min:5|confirmed',
-        ], [
-        'email.required' => "L'email est obligatoire.",
-        'email.email'    => "L'adresse email est invalide.",
-        'email.unique'   => "Cet email est déjà utilisé.",
-        'name.required'  => "Le nom est obligatoire.",
-        'password.required' => "Le mot de passe est obligatoire.",
-        'password.min'      => "Le mot de passe doit contenir au moins 5 caractères.",
-        'password.confirmed' => "Les mots de passe ne correspondent pas.",
-]);
+            ], [
+                'email.required'     => "L'email est obligatoire.",
+                'email.unique'       => "Cet email est déjà utilisé.",
+                'name.required'      => "Le nom est obligatoire.",
+                'password.required'  => "Le mot de passe est obligatoire.",
+                'password.min'       => "Le mot de passe doit contenir au moins 5 caractères.",
+                'password.confirmed' => "Les mots de passe ne correspondent pas.",
+            ]);
 
         User::create([
             'name'     => $request->name,
