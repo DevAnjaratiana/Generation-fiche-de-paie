@@ -7,8 +7,8 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 - **Gestion des employés** : ajout, modification, suppression
 - **Calcul automatique** des salaires et cotisations sociales
 - **Export PDF** des fiches de paie
-- **Dashboard RH** : indicateurs clés (nombre d'employés, total salaires, etc.)
-- **Recherche et filtres** par employé ou période
+- **Dashboard RH** : indicateurs clés (nombre d'employés, total primes, etc.)
+- **Recherche et filtres** par employé 
 
 ## 🛠️ Technologies utilisées
 
