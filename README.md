@@ -20,8 +20,6 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 | PDF | DomPDF |
 | Versionnement | Git & GitHub |
 
-## 🚀 Installation
-
 ### Prérequis
 - PHP ≥ 8.1
 - Composer
