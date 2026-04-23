@@ -27,9 +27,6 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 - Composer
 - MySQL
 
-# 7. Exécuter et lancer le projet
-php artisan serve et 127.0.0.1:8000 sur le navigateur
-
 # 8. Lancer le serveur
 php artisan serve
 
