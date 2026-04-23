@@ -27,6 +27,5 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 
 # 8. Lancer le serveur
 php artisan serve
-
-
-php artisan serve
+# 9. Tester sur navigateur
+127.0.0.1:8000
