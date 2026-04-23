@@ -28,5 +28,5 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 # 8. Lancer le serveur
 php artisan serve
 
-# 8. Lancer le serveur
+
 php artisan serve
