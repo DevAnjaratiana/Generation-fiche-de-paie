@@ -27,34 +27,8 @@ Application web développée avec **Laravel** pour la gestion des employés et l
 - Composer
 - MySQL
 
-
-### Étapes
-
-```bash
-# 1. Cloner le projet
-git clone https://github.com/DevAnjaratiana/Generation-fiche-de-paie.git
-cd Generation-fiche-de-paie
-
-# 2. Installer les dépendances PHP
-composer install
-
-# 3. Installer les dépendances JavaScript
-npm install
-npm run build
-
-# 4. Copier le fichier d'environnement
-cp .env.example .env
-
-# 5. Générer la clé application
-php artisan key:generate
-
-# 6. Configurer la base de données dans .env
-# DB_DATABASE=fiche_paie
-# DB_USERNAME=root
-# DB_PASSWORD=
-
-# 7. Exécuter les migrations
-php artisan migrate
+# 7. Exécuter et lancer le projet
+php artisan serve et 127.0.0.1:8000 sur le navigateur
 
 # 8. Lancer le serveur
 php artisan serve
