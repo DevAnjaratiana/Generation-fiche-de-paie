@@ -12,7 +12,6 @@
         </div>
         <div class="d-flex gap-2 align-items-center">
             <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">← Dashboard</a>
-            {{ $employees->links() }}
             <a href="{{ route('employees.create') }}" class="btn btn-primary">+ Ajouter un employé</a>
         </div>
     </div>
@@ -58,7 +57,8 @@
         </div>
     @endif
 
-    {{-- Tableau --}}
+
+        {{-- Tableau --}}
     <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -81,7 +81,9 @@
                             <td><span class="badge bg-secondary">{{ $employee->matricule }}</span></td>
                             <td>{{ $employee->poste }}</td>
                             <td>{{ $employee->department }}</td>
-                            <td class="text-success fw-semibold">{{ number_format($employee->salaire_base, 0, ',', ' ') }} Ar</td>
+                            <td class="text-success fw-semibold">
+                                {{ number_format($employee->salaire_base, 0, ',', ' ') }} Ar
+                            </td>
                             <td>{{ $employee->date_embauche }}</td>
                             <td class="text-center text-nowrap">
                                 <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-sm btn-warning">
@@ -108,7 +110,19 @@
                 </table>
             </div>
         </div>
-    </div>
 
+        {{-- ✅ Pagination en bas --}}
+        <div class="card-footer bg-white border-top d-flex flex-column flex-md-row
+                    justify-content-between align-items-center gap-2 py-3">
+            <small class="text-muted">
+                Affichage de <strong>{{ $employees->firstItem() ?? 0 }}</strong>
+                à <strong>{{ $employees->lastItem() ?? 0 }}</strong>
+                sur <strong>{{ $employees->total() }}</strong> employé(s)
+            </small>
+            <div>
+                {{ $employees->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

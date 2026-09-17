@@ -21,7 +21,10 @@ class EmployeeController extends Controller
             $query->where('name', 'like', "%$search%");
         }
 
-        $employees = $query->latest()->paginate(10);
+        $employees = $query->latest()->paginate(3);
+        $perPage = (int) $request->get('per_page', 3);
+        $employees = $query->latest()->paginate($perPage)->appends($request->all());
+
         return view('employees.index', compact('employees'));
     }
 
